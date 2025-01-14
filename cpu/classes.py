@@ -9,7 +9,7 @@ class Operand:
     name: str
     bytes: Optional[int]
     adjust: Optional[Literal["+", "-"]]
-    value: int|None = None
+    value: Optional[int] = None
 
     def create(self, value: Optional[int]):
         return Operand(
@@ -19,6 +19,14 @@ class Operand:
             value=value,
             adjust=self.adjust,
             
+        )
+    def copy(self, value: Optional[int] = None):
+        return Operand(
+            immediate=self.immediate,
+            name=self.name,
+            bytes=self.bytes,
+            value=value if value is not None else self.value,
+            adjust=self.adjust,
         )
     def print(self):
         if self.adjust is None:
@@ -50,13 +58,24 @@ class Instruction:
     flags:str=''
     
     def create(self,operands):
-        return Instruction(opcode=self.opcode,
-                           immediate=self.immediate,
-                           operands=operands,
-                           cycles=self.cycles,
-                           bytes=self.bytes,
-                           mnemonic=self.mnemonic,
-                           flags=self.flags)
+        return Instruction(
+            opcode=self.opcode,
+            immediate=self.immediate,
+            operands=operands,
+            cycles=self.cycles,
+            bytes=self.bytes,
+            mnemonic=self.mnemonic,
+            flags=self.flags)
+    def copy(self,operands=None):
+        return Instruction(
+            opcode=self.opcode,
+            immediate=self.immediate,
+            operands=operands if operands is not None else self.operands,
+            cycles=self.cycles,
+            bytes=self.bytes,
+            mnemonic=self.mnemonic,
+            flags=self.flags
+        )
     def print(self):
         ops = ', '.join(op.print() for op in self.operands)
         s = f"{self.mnemonic:<8} {ops}"

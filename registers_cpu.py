@@ -52,6 +52,6 @@ class Registers:
         return (self.f & 0x10) != 0
     def check_f(self,value):
         if(value & 0x000F != 0):
-            ValueError('O valor deve ser um byte')
+            print('Warning: O valor do registrador f está incorreto. Faremos autocorreção.')
             return value & 0xfff0
         return value

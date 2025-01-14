@@ -1,7 +1,8 @@
 from pathlib import Path
 import pytest
 
-from gb.classes_cpu import Instruction
+from gb import Decoder
+from gb.cpu.classes import Instruction
 
 
 

@@ -15,6 +15,7 @@ def load_opcodes(opcode_file):
     prefixed = dict()
     regular = dict()
     for key, v in data["cbprefixed"].items():
+        
         ops = []
         if len(v['operands']) > 0:
             for o in v['operands']:
@@ -26,9 +27,9 @@ def load_opcodes(opcode_file):
                         adjust=o['adjust'] if 'adjust' in o else None,
                     ).create(value = o['value'] if 'value' in o and 'bytes' in o and o['bytes']>0 else None)
                 )
-        prefixed[key] = Instruction(
+        prefixed[int(key,0)] = Instruction(
             bytes=v['bytes'],
-            opcode=key,
+            opcode=int(key,0),
             immediate=v['immediate'],
             cycles=v['cycles'],
             mnemonic=v['mnemonic'],
@@ -47,9 +48,9 @@ def load_opcodes(opcode_file):
                         adjust=o['adjust'] if 'adjust' in o else None,
                     ).create(value = o['value'] if 'value' in o and 'bytes' in o and o['bytes']>0 else None)
                 )
-        regular[key] = Instruction(
+        regular[int(key,0)] = Instruction(
             bytes=v['bytes'],
-            opcode=key,
+            opcode=int(key,0),
             immediate=v['immediate'],
             cycles=v['cycles'],
             mnemonic=v['mnemonic'],
