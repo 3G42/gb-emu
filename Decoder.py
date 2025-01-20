@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from pathlib import Path
 import sys
 
-from . import load_opcodes
+from load_opcodes import load_opcodes
 
 
 @dataclass
